@@ -1,0 +1,28 @@
+#!/bin/sh
+# [ put short description here ]
+usage(){
+ echo "  script_name: [ description ]                                     "
+ echo "                                                                     "
+ echo " usage: script_name -I < >  \                                      "
+ echo "                 -v   \                                              "
+ echo "                 -h                                                  "
+ echo "       -I:     [ description of the parameter ]                      "
+ echo "       -v:     show verbose information                              "
+ echo "       -h:     Show help                                             "
+ exit 1
+}
+
+DIE() {
+    echo $1
+    exit 1
+}
+
+while getopts "I:vh" Options
+do
+    case ${Options} in
+        I  ) IFILE=$OPTARG;;
+        v  ) verbose_switch=1;;
+        h  ) usage; exit;;
+        *  ) echo "Unimplemented option chosen.";uasge;exit;;
+    esac
+done

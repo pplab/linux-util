@@ -36,6 +36,8 @@ DIE() {
     exit 1
 }
 
+WORKDIR=$(dirname $(readlink -f $0))
+
 while getopts "h" Options
 do
     case ${Options} in
@@ -52,20 +54,20 @@ FILENAME=$1
 if [ `echo $FILENAME|awk -F "." '{print $NF}'` = "sh" ]
 then
     echo '#!/bin/sh' > $FILENAME
-    cat all.template >> $FILENAME
-    cat sh.template >> $FILENAME
+    cat $WORKDIR/all.template >> $FILENAME
+    cat $WORKDIR/sh.template >> $FILENAME
 elif [ `echo $FILENAME|awk -F "." '{print $NF}'` = "awk" ]
 then
     echo '#!/bin/awk' >> $FILENAME
-    cat all.template >> $FILENAME
+    cat $WORKDIR/all.template >> $FILENAME
 elif [ `echo $FILENAME|awk -F "." '{print $NF}'` = "f90" ]
 then
-    sed 's/^#/!/g' all.template > $FILENAME
+    sed 's/^#/!/g' $WORKDIR/all.template > $FILENAME
     NAME=$(basename $FILENAME|cut -d. -f1)
     echo "program $NAME" >> $FILENAME
     echo "implicit none" >> $FILENAME
     echo "end program $NAME" >> $FILENAME
 else
-    cp all.template $FILENAME
+    cp $WORKDIR/all.template $FILENAME
 fi
 

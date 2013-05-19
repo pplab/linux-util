@@ -26,7 +26,7 @@
 #  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #====================================8<----------------------------------------
 # convert a decimal number to a number of any base(less or equal than 9)
-# example: echo 112 |awk -v B=3 -f any2dec.awk
+# example: echo 14|awk -v B=3 -f dec2any.awk
 BEGIN{
     if(B=="")
     {
